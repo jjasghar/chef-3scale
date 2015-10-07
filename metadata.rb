@@ -1,6 +1,6 @@
 name             'chef-3scale'
-maintainer       'YOUR_NAME'
-maintainer_email 'YOUR_EMAIL'
+maintainer       '3scale Inc.'
+maintainer_email 'support@3scale.net'
 license          'All rights reserved'
 description      'Installs/Configures chef-3scale'
 long_description 'Installs/Configures chef-3scale'

@@ -39,4 +39,4 @@ Include `chef-3scale` in your node's `run_list`:
 
 ## License and Authors
 
-Author:: YOUR_NAME (<YOUR_EMAIL>)
+Author:: Victor Delgado (<victor@3scale.net>)
