@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 source 'https://rubygems.org'
 
 group :test do
@@ -16,7 +17,7 @@ group :integration do
   gem 'guard-rspec'
   gem 'guard-rubocop', '>= 1.1'
   gem 'kitchen-vagrant'
-  gem 'test-kitchen', '~> 1.2.0'
+  gem 'test-kitchen', '~> 1.2'
   gem 'travis-lint'
 end
 
