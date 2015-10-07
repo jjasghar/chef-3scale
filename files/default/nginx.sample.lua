@@ -1,0 +1,3 @@
+-- This file should be replace by the one generated for you by 3scale.
+-- You can get it by following the steps described here:
+-- https://support.3scale.net/howtos/api-configuration#nginxOnPremiseSetup
