@@ -11,4 +11,8 @@ platforms:
 suites:
   - name: default
     run_list:
+      - recipe[chef-3scale]
     attributes:
+    openresty:
+      source:
+        prefix: "/etc"
