@@ -17,20 +17,15 @@ time = Time.new.strftime("%Y-%m-%d-%H%M%S")
 chef_dir = Chef::Config[:file_cache_path]
 dest_dir = File.join(chef_dir, time)
 
-directory dest_dir do
+remote_directory dest_dir do
+  source 'config'
   owner node['openresty']['user']
-  recursive true
+  group node['openresty']['group']
+  mode '0755'
+  files_owner node['openresty']['user']
+  files_group node['openresty']['group']
+  files_mode '0644'
   action :create
-end
-
-files = %w(nginx.sample.conf nginx.sample.lua)
-files.each do |file|
-  cookbook_file "#{dest_dir}/#{file}" do
-    source file
-    owner node['openresty']['user']
-    group node['openresty']['group']
-    mode 0644
-  end
 end
 
 ruby_block 'symlink latest config files' do
