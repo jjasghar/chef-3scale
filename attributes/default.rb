@@ -6,3 +6,15 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+
+# Configuration files source. Possible values: 'local', '3scale'
+#   - local: files are located in the cookbook files/default/ directory
+#   - 3scale: files are directly downloaded from your 3scale account
+default['3scale']['config-source'] = 'local'
+
+# 3scale account information
+#   - provider_key: the key that identifies you as a 3scale user
+#   - admin_url: if your 3scale admin portal domain is mycompany-admin.3scale.net,
+#                then the value of this attribute should be 'mycompany'
+default['3scale']['provider-key'] = 'REPLACE_WITH_3SCALE_PROVIDER_KEY'
+default['3scale']['admin-domain'] = 'REPLACE_WITH_3SCALE_ADMIN_URL_PART'
