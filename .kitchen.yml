@@ -13,6 +13,10 @@ suites:
     run_list:
       - recipe[chef-3scale::default]
     attributes:
+      3scale:
+        provider-key: <%= ENV['THREESCALE_PROVIDER_KEY'] %>
+        admin-domain: <%= ENV['THREESCALE_ADMIN_DOMAIN'] %>
+        config-source: 'local'
       openresty:
         source:
           prefix: "/etc"
