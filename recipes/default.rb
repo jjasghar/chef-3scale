@@ -90,6 +90,10 @@ ruby_block 'symlink latest config files' do
     FileUtils.symlink(Dir["#{dest_dir}/*"], node['openresty']['dir'], force: true)
   end
   action :run
+
+  if node['openresty']['service']['start_on_boot']
+    notifies :reload, node['openresty']['service']['resource']
+  end
 end
 
 include_recipe 'openresty::commons_cleanup'
