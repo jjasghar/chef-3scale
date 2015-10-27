@@ -71,6 +71,9 @@ end
 ruby_block 'symlink configuration files' do
   block do
     Helpers.link_files(version_dir, node['openresty']['dir'])
+    # fix chef bug where attributes with a default
+    # value of 'nil' are always overriden
+    node.rm('3scale')
   end
   action :run
 
