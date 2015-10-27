@@ -1,7 +1,3 @@
-require 'httpclient'
-require 'zip'
-require 'fileutils'
-
 class Chef::Recipe::Helpers
   def self.is_config?(filename)
     ['.lua', '.conf'].include?(File.extname(filename))

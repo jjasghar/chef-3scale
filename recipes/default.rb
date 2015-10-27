@@ -14,11 +14,14 @@ include_recipe 'openresty::commons_script'
 include_recipe 'openresty::commons_build'
 
 chef_gem 'httpclient' do
-  compile_time false
+  compile_time true
 end
 chef_gem 'rubyzip' do
-  compile_time false
+  compile_time true
 end
+require 'httpclient'
+require 'zip'
+require 'fileutils'
 
 time = Time.new.strftime("%Y-%m-%d-%H%M%S")
 chef_dir = Chef::Config[:file_cache_path]
