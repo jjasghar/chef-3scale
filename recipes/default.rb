@@ -25,17 +25,17 @@ chef_dir = Chef::Config[:file_cache_path]
 
 if node['3scale']['config-version'].nil?
   Chef::Log.warn("3SCALE - deploying gateway with LATEST configuration version: #{time}")
-  dest_dir = File.join(chef_dir, time)
+  version_dir = File.join(chef_dir, time)
   mode = node['3scale']['config-source']
 else
   Chef::Log.warn("3SCALE - rolling back to configuration version: #{node['3scale']['config-version']}")
-  dest_dir = File.join(chef_dir, node['3scale']['config-version'])
+  version_dir = File.join(chef_dir, node['3scale']['config-version'])
   mode = 'rollback'
 end
 
 if mode == '3scale'
-  # create output directory
-  directory dest_dir do
+  # create directory to store downloaded configuration
+  directory version_dir do
     owner node['openresty']['user']
     recursive true
     action :create
@@ -45,13 +45,13 @@ if mode == '3scale'
     block do
       Helpers.fetch_3scale_config(node['3scale']['admin-domain'],
                                   node['3scale']['provider-key'],
-                                  dest_dir)
+                                  version_dir)
     end
     action :run
   end
 elsif mode == 'local'
-  # use local configuration files from files/default/config
-  remote_directory dest_dir do
+  # copy configuration files located at files/default/config
+  remote_directory version_dir do
     source 'config'
     owner node['openresty']['user']
     group node['openresty']['group']
@@ -63,12 +63,15 @@ elsif mode == 'local'
   end
 end
 
-ruby_block 'symlink latest config files' do
+# create links for configuration files that should be used
+# in the nginx configuration directory
+ruby_block 'symlink configuration files' do
   block do
-    Helpers.link_files(dest_dir, node['openresty']['dir'])
+    Helpers.link_files(version_dir, node['openresty']['dir'])
   end
   action :run
 
+  # reload nginx if it was already running
   if node['openresty']['service']['start_on_boot']
     notifies :reload, node['openresty']['service']['resource']
   end

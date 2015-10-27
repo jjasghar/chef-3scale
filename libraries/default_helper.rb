@@ -36,7 +36,7 @@ class Chef::Recipe::Helpers
     end
   end
 
-  def self.link_files(dest_dir, openresty_dir)
-    FileUtils.symlink(Dir["#{dest_dir}/*"], openresty_dir, force: true)
+  def self.link_files(from_dir, openresty_dir)
+    FileUtils.symlink(Dir["#{from_dir}/*"], openresty_dir, force: true)
   end
 end
