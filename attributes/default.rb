@@ -18,3 +18,8 @@ default['3scale']['config-source'] = 'local'
 #                then the value of this attribute should be 'mycompany'
 default['3scale']['provider-key'] = 'REPLACE_WITH_3SCALE_PROVIDER_KEY'
 default['3scale']['admin-domain'] = 'REPLACE_WITH_3SCALE_ADMIN_URL_PART'
+
+# To roll back to a previously deployed configuration set this attribute
+# to the timestamp of that version. Example value: "2015-09-04-132622"
+# If not set, the latest version will be fetched from 3scale and deployed
+default['3scale']['config-version'] = nil

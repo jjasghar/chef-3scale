@@ -22,9 +22,18 @@ end
 
 time = Time.new.strftime("%Y-%m-%d-%H%M%S")
 chef_dir = Chef::Config[:file_cache_path]
-dest_dir = File.join(chef_dir, time)
 
-if node['3scale']['config-source'] == '3scale'
+if node['3scale']['config-version'].nil?
+  Chef::Log.warn("3SCALE - deploying gateway with LATEST configuration version: #{time}")
+  dest_dir = File.join(chef_dir, time)
+  mode = node['3scale']['config-source']
+else
+  Chef::Log.warn("3SCALE - rolling back to configuration version: #{node['3scale']['config-version']}")
+  dest_dir = File.join(chef_dir, node['3scale']['config-version'])
+  mode = 'rollback'
+end
+
+if mode == '3scale'
   # create output directory
   directory dest_dir do
     owner node['openresty']['user']
@@ -40,7 +49,7 @@ if node['3scale']['config-source'] == '3scale'
     end
     action :run
   end
-else
+elsif mode == 'local'
   # use local configuration files from files/default/config
   remote_directory dest_dir do
     source 'config'
