@@ -34,39 +34,9 @@ if node['3scale']['config-source'] == '3scale'
 
   ruby_block 'fetch configuration files from 3scale' do
     block do
-      require 'httpclient'
-      require 'zip'
-
-      def is_config?(filename)
-        ['.lua', '.conf'].include?(File.extname(filename))
-      end
-
-      def out_filename(filename)
-        File.extname(filename) == '.conf' ? 'nginx.conf' : filename
-      end
-
-      def unzip(data, dest_dir)
-        io = StringIO.new(data)
-
-        ::Zip::InputStream.open(io) do |fzip|
-          while entry = fzip.get_next_entry
-            next unless is_config?(entry.name)
-            content = fzip.read
-            filename = out_filename(entry.name)
-            path = File.join(dest_dir, filename)
-            File.write(path, content)
-          end
-        end
-      end
-
-      path = '/admin/api/nginx.zip'
-      url = "https://#{node['3scale']['admin-domain']}-admin.3scale.net#{path}?provider_key=#{node['3scale']['provider-key']}"
-      response = HTTPClient.get(url, follows_redirect: true)
-      if response.status == 200
-        unzip(response.body, dest_dir)
-      else
-        raise 'Could not fetch files from 3scale'
-      end
+      Helpers.fetch_3scale_config(node['3scale']['admin-domain'],
+                                  node['3scale']['provider-key'],
+                                  dest_dir)
     end
     action :run
   end
@@ -86,8 +56,7 @@ end
 
 ruby_block 'symlink latest config files' do
   block do
-    require 'fileutils'
-    FileUtils.symlink(Dir["#{dest_dir}/*"], node['openresty']['dir'], force: true)
+    Helpers.link_files(dest_dir, node['openresty']['dir'])
   end
   action :run
 
