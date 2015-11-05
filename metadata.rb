@@ -1,9 +1,13 @@
 name             'chef-3scale'
 maintainer       '3scale Inc.'
 maintainer_email 'support@3scale.net'
-license          'All rights reserved'
-description      'Installs/Configures chef-3scale'
-long_description 'Installs/Configures chef-3scale'
-version          '0.1.0'
+license          'MIT'
+description      'Install and configures the 3scale API gateway'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version          '0.1.1'
+
+supports 'ubuntu'
+supports 'centos'
+supports 'debian'
 
 depends 'openresty'
