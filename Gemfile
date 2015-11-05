@@ -24,4 +24,5 @@ end
 group :development do
   gem 'webmock'
   gem 'fauxhai'
+  gem 'stove'
 end
