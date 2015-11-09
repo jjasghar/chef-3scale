@@ -15,7 +15,7 @@ describe 'chef-3scale::default' do
     its(:stderr) { should contain('nginx version: openresty') }
   end
 
-  describe command('curl localhost:80') do
+  describe command('wget -qO - http://localhost:80') do
     its(:stdout) { should contain('Welcome to nginx!') }
   end
 
