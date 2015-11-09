@@ -12,7 +12,7 @@ describe 'chef-3scale::default' do
   end
 
   describe command('/usr/sbin/nginx -V') do
-    its(:stderr) { should contain('nginx version: openresty') }
+    its(:stderr) { should contain('openresty') }
   end
 
   describe command('wget -qO - http://localhost:80') do

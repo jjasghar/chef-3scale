@@ -8,6 +8,5 @@ version          '0.1.1'
 
 supports 'ubuntu'
 supports 'centos'
-supports 'debian'
 
 depends 'openresty'

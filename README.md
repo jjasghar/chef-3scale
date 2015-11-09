@@ -123,8 +123,8 @@ If there are no errors in the Nginx log, you might want to double check how you 
 
 This cookbook has been tested on the following platforms:
 
-- Ubuntu  
-- CentOS  
+- Ubuntu (versions: 14.04 LTS)  
+- CentOS (versions: 7.1, 6.7)  
 
 ## License and Authors
 
