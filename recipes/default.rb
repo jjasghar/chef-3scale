@@ -52,6 +52,20 @@ if mode == '3scale'
     end
     action :run
   end
+elsif mode == 'url'
+  # create directory to store downloaded configuration
+  directory version_dir do
+    owner node['openresty']['user']
+    recursive true
+    action :create
+  end
+
+  ruby_block 'fetch configuration files from a URL' do
+    block do
+      Helpers.fetch_from_url(node['3scale']['config-url'], version_dir)
+    end
+    action :run
+  end
 elsif mode == 'local'
   # copy configuration files located at files/default/config
   remote_directory version_dir do
