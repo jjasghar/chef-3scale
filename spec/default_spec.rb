@@ -84,6 +84,31 @@ describe 'chef-3scale::default' do
 end
 
 describe 'chef-3scale::default' do
+  context 'URL mode' do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new do |node|
+        node.set['network']['interfaces']['lo']['addresses'] = '127.0.0.1'
+        node.set['kernel']['release'] = '2.6.32-504'
+        node.set['3scale']['config-source']  = 'url'
+        node.set['3scale']['config-url'] = 'http://example.com/bundle.zip'
+      end.converge(described_recipe)
+    end
+
+    it 'creates output directory' do
+      expect(chef_run).to create_directory('/var/chef/cache/2015-09-17-121010')
+    end
+
+    it 'runs ruby_block to download files from a URL' do
+      expect(chef_run).to run_ruby_block('fetch configuration files from a URL')
+    end
+
+    it 'runs ruby_block to symlink config files' do
+      expect(chef_run).to run_ruby_block('symlink configuration files')
+    end
+  end
+end
+
+describe 'chef-3scale::default' do
   context 'rollback mode' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
