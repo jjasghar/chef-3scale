@@ -13,11 +13,11 @@ There are 4 attributes that you will need to set to configure how you use the co
 
 | Attribute                                | Description      |Default                      |
 |:-----------------------------------------|:-------------|:---------------------------------|
-| `['3scale']['config-source']`                | Where your Nginx configuration files will be taken from. Two options: "local" or "3scale". More on this the section “Applying your own 3scale configuration”.    | `'local'`
+| `['3scale']['config-source']`                | Where your Nginx configuration files will be taken from. Three options: "local", "url" or "3scale". More on this the section “Applying your own 3scale configuration”.    | `'local'`
 | `['3scale']['provider-key']`                 | The key that identifies you as a 3scale customer. It can be found in the "Account" menu of your 3scale admin portal. | `'REPLACE_WITH_3SCALE_PROVIDER_KEY'`
 | `['3scale']['admin-domain']`               | If your 3scale admin portal domain is "mycompany-admin.3scale.net", then the value of this attribute should be "mycompany". | `'REPLACE_WITH_3SCALE_ADMIN_URL_PART'`
 | `['3scale']['config-version']` | Version id. If not included, the current configuration from your 3scale account will be used.  If included, the value must be a timestamp of one deployment, formatted like in the following example: "2015-09-15-041532". See the "Rollback process" section for more information on this. | `nil`
-
+| `['3scale']['config-url']` | URL endpoint from where the configuration files are downloaded when `[3scale][config-source] = "url"`. The URL endpoint pointed here should host a zip bundle with the files. Example: "https://s3.amazonaws.com/my-bucket-name/bundle.zip"  | `nil`
 
 
 The default value for each of those attributes is defined [here](https://github.com/3scale/chef-3scale/blob/master/attributes/default.rb).
@@ -43,7 +43,7 @@ Include `chef-3scale` in your node's `run_list`:
 
 For the API gateway to be configured for your own API endpoints, you need to deploy it using your own set of Nginx configuration files. 
 
-There are two ways to apply your own configuration files to the cookbook:
+There are three ways to apply your own configuration files to the cookbook:
 
 ### Option 1: Local configuration files 
 
@@ -63,8 +63,18 @@ To use this option you will need to set the following attributes in your node or
 - **['3scale']['provider-key']**  = (see attributes section)  
 - **['3scale']['admin-domain']**  = (see attributes section)  
 
+### Option 3: Fetch configuration files from any URL endpoint
 
-In both cases, the Nginx configuration files will be copied to a subdirectory in the `/var/chef/cache/` and symlinked to the Nginx working directory (`/etc/nginx/`).
+With this option the cookbook will automatically fetch the Nginx configuration files from the URL endpoint specified in the `[3scale][config-ur]` attribute. That endpoint should host a zip bundle of the configuration files.
+  
+To use this option you will need to set the following attributes in your node or role description:  
+
+- **['3scale']['config-source']** = “url”   
+- **['3scale']['config-url']**    = (see attributes section)  
+  
+
+#### Note
+In all three deployment options the Nginx configuration files will be copied to a subdirectory in the `/var/chef/cache/` and symlinked to the Nginx working directory (`/etc/nginx/`).
 
 ## Rollback process
 

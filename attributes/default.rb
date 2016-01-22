@@ -10,7 +10,13 @@
 # Configuration files source. Possible values: 'local', '3scale'
 #   - local: files are located in the cookbook files/default/ directory
 #   - 3scale: files are directly downloaded from your 3scale account
+#   - url: files are directly downloaded by an url specified as an attribute
 default['3scale']['config-source'] = 'local'
+
+# URL used in the config-source = 'url' mode
+# from where the config files will be fetched
+# (only required if config-source == 'url')
+default['3scale']['config-url'] = nil
 
 # 3scale account information
 #   - provider_key: the key that identifies you as a 3scale user

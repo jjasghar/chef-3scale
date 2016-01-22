@@ -30,15 +30,19 @@ class Chef::Recipe::Helpers
     end
   end
 
-  def self.fetch_3scale_config(admin_domain, provider_key, dest_dir)
-    path = '/admin/api/nginx.zip'
-    url = "https://#{admin_domain}-admin.3scale.net#{path}?provider_key=#{provider_key}"
+  def self.fetch_from_url(url, dest_dir)
     response = HTTPClient.get(url, follows_redirect: true)
     if response.status == 200
       unzip(response.body, dest_dir)
     else
       raise 'Could not fetch files from 3scale'
     end
+  end
+
+  def self.fetch_3scale_config(admin_domain, provider_key, dest_dir)
+    path = '/admin/api/nginx.zip'
+    url = "https://#{admin_domain}-admin.3scale.net#{path}?provider_key=#{provider_key}"
+    fetch_from_url(url, dest_dir)
   end
 
   def self.link_files(from_dir, openresty_dir)
