@@ -14,10 +14,10 @@ include_recipe 'openresty::commons_script'
 include_recipe 'openresty::commons_build'
 
 chef_gem 'httpclient' do
-  compile_time true
+  compile_time true if Chef::Resource::ChefGem.method_defined?(:compile_time)
 end
 chef_gem 'rubyzip' do
-  compile_time true
+  compile_time true if Chef::Resource::ChefGem.method_defined?(:compile_time)
 end
 require 'httpclient'
 require 'zip'
