@@ -8,22 +8,12 @@
 #
 
 class Chef::Recipe::Helpers
-  def self.is_config?(filename)
-    ['.lua', '.conf'].include?(File.extname(filename))
-  end
-
-  def self.out_filename(filename)
-    File.extname(filename) == '.conf' ? 'nginx.conf' : filename
-  end
-
   def self.unzip(data, dest_dir)
     ::Zip::File.open_buffer(data) do |fzip|
       fzip.each do |entry|
-        next unless is_config?(entry.name)
-        content = entry.get_input_stream.read
-        filename = out_filename(entry.name)
-        path = File.join(dest_dir, filename)
-        File.write(path, content)
+       path = File.join(dest_dir, entry.name)
+       FileUtils::mkdir_p(File.dirname(path))
+       fzip.extract(entry, path) unless File.exist?(path)
       end
     end
   end
