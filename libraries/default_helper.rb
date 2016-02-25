@@ -20,7 +20,7 @@ class Chef::Recipe::Helpers
     ::Zip::File.open_buffer(data) do |fzip|
       fzip.each do |entry|
         next unless is_config?(entry.name)
-        content = fzip.read(entry)
+        content = entry.get_input_stream.read
         filename = out_filename(entry.name)
         path = File.join(dest_dir, filename)
         File.write(path, content)
