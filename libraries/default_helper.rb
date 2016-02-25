@@ -17,12 +17,10 @@ class Chef::Recipe::Helpers
   end
 
   def self.unzip(data, dest_dir)
-    io = StringIO.new(data)
-
-    ::Zip::InputStream.open(io) do |fzip|
-      while entry = fzip.get_next_entry
+    ::Zip::File.open_buffer(data) do |fzip|
+      fzip.each do |entry|
         next unless is_config?(entry.name)
-        content = fzip.read
+        content = fzip.read(entry)
         filename = out_filename(entry.name)
         path = File.join(dest_dir, filename)
         File.write(path, content)
