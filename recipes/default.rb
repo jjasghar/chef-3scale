@@ -16,7 +16,7 @@ include_recipe 'openresty::commons_build'
 chef_gem 'httpclient' do
   compile_time true if Chef::Resource::ChefGem.method_defined?(:compile_time)
 end
-chef_gem 'rubyzip' do
+chef_gem 'archive/zip' do
   compile_time true if Chef::Resource::ChefGem.method_defined?(:compile_time)
 end
 require 'httpclient'
