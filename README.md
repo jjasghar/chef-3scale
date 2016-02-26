@@ -136,6 +136,8 @@ This cookbook has been tested on the following platforms:
 - Ubuntu (versions: 14.04 LTS)  
 - CentOS (versions: 7.1, 6.7)  
 
+It has been tested with Chef 11 and Chef 12.  
+
 ## License and Authors
 
 Author:: Victor Delgado (<victor@3scale.net>)
