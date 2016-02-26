@@ -8,22 +8,18 @@
 #
 
 class Chef::Recipe::Helpers
-  def self.unzip(data, dest_dir)
-    ::Zip::File.open_buffer(data) do |fzip|
-      fzip.each do |entry|
-       path = File.join(dest_dir, entry.name)
-       FileUtils::mkdir_p(File.dirname(path))
-       fzip.extract(entry, path) unless File.exist?(path)
-      end
-    end
+  def self.unzip(zipfile, dest_dir)
+     Archive::Zip.extract(zipfile, dest_dir)
   end
 
   def self.fetch_from_url(url, dest_dir)
     response = HTTPClient.get(url, follows_redirect: true)
     if response.status == 200
-      unzip(response.body, dest_dir)
+      zip_path = File.join(dest_dir, "bundle.zip")
+      File.open(zip_path, 'w') { |file| file.write(response.body) }
+      unzip(zip_path, dest_dir)
     else
-      raise 'Could not fetch files from 3scale'
+      raise "Could not fetch files from URL: #{url}"
     end
   end
 
