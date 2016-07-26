@@ -9,13 +9,13 @@
 
 class Chef::Recipe::Helpers
   def self.unzip(zipfile, dest_dir)
-     Archive::Zip.extract(zipfile, dest_dir)
+    Archive::Zip.extract(zipfile, dest_dir)
   end
 
   def self.fetch_from_url(url, dest_dir)
     response = HTTPClient.get(url, follows_redirect: true)
     if response.status == 200
-      zip_path = File.join(dest_dir, "bundle.zip")
+      zip_path = File.join(dest_dir, 'bundle.zip')
       File.open(zip_path, 'w') { |file| file.write(response.body) }
       unzip(zip_path, dest_dir)
     else

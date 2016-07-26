@@ -10,7 +10,7 @@ describe 'chef-3scale::default' do
         node.set['kernel']['release'] = '2.6.32-504'
         node.set['3scale']['provider-key']  = 'THREESCALE_PROVIDER_KEY'
         node.set['3scale']['admin-domain']  = 'THREESCALE_ADMIN_DOMAIN'
-        node.set['3scale']['config-source']  = 'local'
+        node.set['3scale']['config-source'] = 'local'
       end.converge(described_recipe)
     end
 
@@ -65,7 +65,7 @@ describe 'chef-3scale::default' do
         node.set['kernel']['release'] = '2.6.32-504'
         node.set['3scale']['provider-key']  = 'THREESCALE_PROVIDER_KEY'
         node.set['3scale']['admin-domain']  = 'THREESCALE_ADMIN_DOMAIN'
-        node.set['3scale']['config-source']  = '3scale'
+        node.set['3scale']['config-source'] = '3scale'
       end.converge(described_recipe)
     end
 
@@ -89,7 +89,7 @@ describe 'chef-3scale::default' do
       ChefSpec::SoloRunner.new do |node|
         node.set['network']['interfaces']['lo']['addresses'] = '127.0.0.1'
         node.set['kernel']['release'] = '2.6.32-504'
-        node.set['3scale']['config-source']  = 'url'
+        node.set['3scale']['config-source'] = 'url'
         node.set['3scale']['config-url'] = 'http://example.com/bundle.zip'
       end.converge(described_recipe)
     end
@@ -116,7 +116,7 @@ describe 'chef-3scale::default' do
         node.set['kernel']['release'] = '2.6.32-504'
         node.set['3scale']['provider-key']  = 'THREESCALE_PROVIDER_KEY'
         node.set['3scale']['admin-domain']  = 'THREESCALE_ADMIN_DOMAIN'
-        node.set['3scale']['config-source']  = '2010-10-10-101010'
+        node.set['3scale']['config-source'] = '2010-10-10-101010'
       end.converge(described_recipe)
     end
 

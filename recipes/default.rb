@@ -23,7 +23,7 @@ require 'httpclient'
 require 'archive/zip'
 require 'fileutils'
 
-time = Time.new.strftime("%Y-%m-%d-%H%M%S")
+time = Time.new.strftime('%Y-%m-%d-%H%M%S')
 chef_dir = Chef::Config[:file_cache_path]
 
 if node['3scale']['config-version'].nil?

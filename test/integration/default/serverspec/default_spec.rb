@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'chef-3scale::default' do
-
   ###############
   # nginx service
   ###############
@@ -44,5 +43,4 @@ describe 'chef-3scale::default' do
     it { should be_owned_by 'root' }
     it { should be_grouped_into 'root' }
   end
-
 end
