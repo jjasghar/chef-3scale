@@ -1,5 +1,7 @@
 # 3scale API gateway cookbook
 
+[![Build Status](https://jenkins-01.eastus.cloudapp.azure.com/job/3scale-cookbook/badge/icon)](https://jenkins-01.eastus.cloudapp.azure.com/job/3scale-cookbook)
+
 This [cookbook](https://github.com/3scale/chef-3scale) installs the 3scale API gateway. [3scale](http://www.3scale.net/platform-features/) is an API management platform that makes it easy to open, distribute, control, and monetize your API. The API gateway is the simplest and most performant way to integrate your API with the 3scale platform.
 
 Running the cookbook will install [Openresty](http://openresty.org/), which the 3scale API gateway is based upon, plus all the required system dependencies. 
