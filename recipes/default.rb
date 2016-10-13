@@ -6,6 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+# rubocop:disable LineLength
 
 include_recipe 'openresty::ohai_plugin'
 include_recipe 'openresty::commons_user'
