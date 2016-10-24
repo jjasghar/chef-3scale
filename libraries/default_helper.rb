@@ -8,8 +8,8 @@
 #
 # rubocop:disable LineLength
 
-module Chef
-  module Recipe
+class Chef
+  class Recipe
     # 3scale Helper functions
     class Helpers
       def self.unzip(zipfile, dest_dir)
