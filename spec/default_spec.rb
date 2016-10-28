@@ -1,3 +1,5 @@
+# rubocop:disable LineLength
+
 require 'chefspec'
 require 'spec_helper'
 require 'timecop'

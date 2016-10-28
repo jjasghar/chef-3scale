@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+# rubocop:disable LineLength
+
 # Configuration files source. Possible values: 'local', '3scale'
 #   - local: files are located in the cookbook files/default/ directory
 #   - 3scale: files are directly downloaded from your 3scale account
